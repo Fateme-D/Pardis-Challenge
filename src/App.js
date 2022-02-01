@@ -4,6 +4,8 @@ import "./App.css";
 import { Modal, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import ModalForm from "./componenet/Modal/Modal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [companies, setCompanies] = useState([]);
@@ -74,6 +76,7 @@ function App() {
   const onModalFormSubmit = (e) => {
     e.preventDefault();
     handleClose();
+    toast.success("با موفقیت ثبت گردید");
   };
 
   const editProductHandler = (id) => {
@@ -100,6 +103,8 @@ function App() {
     return newData;
   }
   const orderedData = sortRowData();
+
+  console.log([...Array(companies.length).keys()]);
   return (
     <div className="App">
       <div className="tableContainer">
@@ -110,15 +115,15 @@ function App() {
               {companies
                 .sort((a, b) => a.id - b.id)
                 .map((c) => (
-                  <th>{c.title}</th>
+                  <th key={c.id}>{c.title}</th>
                 ))}
             </tr>
           </thead>
           <tbody>
             {[...Array(companies.length).keys()].map((i, index) => {
               return (
-                <tr key={i.id}>
-                  <td key={i.id}>{Object.keys(orderedData)[index]}</td>
+                <tr key={index}>
+                  <td>{Object.keys(orderedData)[index]}</td>
                   {orderedData[Object.keys(orderedData)[index]].map((d) => {
                     return (
                       <td key={d.id} onClick={() => modalHandler(d.id)}>
