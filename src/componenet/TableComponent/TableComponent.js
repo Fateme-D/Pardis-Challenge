@@ -23,11 +23,6 @@ const TableComponent = () => {
     dispatch(fetchProductDetails());
     dispatch(fetchCompanies());
   }, []);
-
-  console.log(products);
-  console.log(productDetails);
-  console.log(companies);
-
   const handleClose = () => setShow(false);
 
   const onModalFormSubmit = (e) => {

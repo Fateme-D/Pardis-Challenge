@@ -7,7 +7,6 @@ const ModalForm = ({ onSubmit, edit }) => {
 
   useEffect(() => {
     setInput({ ...input, price: edit.price, quantity: edit.quantity });
-    console.log("loop");
   }, [edit]);
 
   const changeHandler = (e) => {
