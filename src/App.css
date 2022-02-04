@@ -19,4 +19,5 @@ th, td {
   border: 1px solid #8b5cf6;
   text-align: center;
   padding: 12px;
+  cursor: pointer;
 }

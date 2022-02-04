@@ -7,7 +7,8 @@ const ModalForm = ({ onSubmit, edit }) => {
 
   useEffect(() => {
     setInput({ ...input, price: edit.price, quantity: edit.quantity });
-  }, [edit.price, edit.quantity, input]);
+    console.log("loop");
+  }, [edit]);
 
   const changeHandler = (e) => {
     setInput(([e.target.name] = e.target.value));
@@ -38,7 +39,7 @@ const ModalForm = ({ onSubmit, edit }) => {
       <Button
         variant="primary"
         type="submit"
-        block
+        block="true"
         style={{ marginTop: "15px" }}
       >
         submit

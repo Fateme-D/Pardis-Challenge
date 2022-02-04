@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCompanies } from "../../redux/companies/companiesActions";
 import { fetchProductDetails } from "../../redux/productDetails/productDetailsActions";
@@ -24,7 +24,12 @@ const TableComponent = () => {
     dispatch(fetchCompanies());
   }, []);
 
+  console.log(products);
+  console.log(productDetails);
+  console.log(companies);
+
   const handleClose = () => setShow(false);
+
   const onModalFormSubmit = (e) => {
     e.preventDefault();
     handleClose();
@@ -55,6 +60,7 @@ const TableComponent = () => {
     return newData;
   }
   const orderedData = sortRowData();
+  const sortedCompanies = companies.sort((a, b) => a.companyId - b.companyId);
 
   return (
     <div className="tableContainer">
@@ -70,7 +76,7 @@ const TableComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {[...Array(companies.length).keys()].map((i, index) => {
+          {[...Array(products.length).keys()].map((i, index) => {
             return (
               <tr key={index}>
                 <td>{Object.keys(orderedData)[index]}</td>
@@ -84,6 +90,34 @@ const TableComponent = () => {
               </tr>
             );
           })}
+          {/* {[...Array(products.length).keys()].map((i) => {
+            return (
+              <tr key={i}>
+                <td>{Object.keys(orderedData)[i]}</td>
+                {orderedData[Object.keys(orderedData)[i]].map((d, index) => {
+                  if (d.companyId == sortedCompanies[index].id) {
+                    return (
+                      <td key={d.id} onClick={() => modalHandler(d.id)}>
+                        id:{d.id} - pId:{d.productId} - cId:{d.companyId}
+                      </td>
+                    );
+                  } else {
+                    return (
+                      <td
+                        key={d.id}
+                        style={{
+                          backgroundColor: "#c9c0c0",
+                          cursor: "no-drop",
+                        }}
+                      >
+                        -
+                      </td>
+                    );
+                  }
+                })}
+              </tr>
+            );
+          })} */}
         </tbody>
       </Table>
       <Modal show={show} onHide={handleClose}>
