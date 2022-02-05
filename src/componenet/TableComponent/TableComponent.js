@@ -82,9 +82,7 @@ const TableComponent = () => {
 
                   const field =
                     orderedData[Object.keys(orderedData)[i]][indexField];
-                  console.log(field);
                   if (field) {
-                    console.log(field.id);
                     return (
                       <td key={index} onClick={() => modalHandler(field.id)}>
                         id:{field.id} - pId:{field.productId} - cId:
