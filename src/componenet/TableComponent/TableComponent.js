@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCompanies } from "../../redux/companies/companiesActions";
 import { fetchProductDetails } from "../../redux/productDetails/productDetailsActions";
@@ -33,8 +33,8 @@ const TableComponent = () => {
 
   const editProductHandler = (id) => {
     setShow(true);
-    const index = productDetails.findIndex((p) => p.id === id);
-    const selectedProduct = { ...productDetails[index] };
+    // const index = productDetails.findIndex((p) => p.id === id);
+    // const selectedProduct = { ...productDetails[index] };
   };
 
   const modalHandler = (id) => {
@@ -71,35 +71,30 @@ const TableComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {[...Array(products.length).keys()].map((i, index) => {
-            return (
-              <tr key={index}>
-                <td>{Object.keys(orderedData)[index]}</td>
-                {orderedData[Object.keys(orderedData)[index]].map((d) => {
-                  return (
-                    <td key={d.id} onClick={() => modalHandler(d.id)}>
-                      id:{d.id} - pId:{d.productId} - cId:{d.companyId}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-          {/* {[...Array(products.length).keys()].map((i) => {
+          {[...Array(products.length).keys()].map((i) => {
             return (
               <tr key={i}>
                 <td>{Object.keys(orderedData)[i]}</td>
-                {orderedData[Object.keys(orderedData)[i]].map((d, index) => {
-                  if (d.companyId == sortedCompanies[index].id) {
+                {sortedCompanies.map((c, index) => {
+                  const indexField = orderedData[
+                    Object.keys(orderedData)[i]
+                  ].findIndex((item) => item.companyId === c.id);
+
+                  const field =
+                    orderedData[Object.keys(orderedData)[i]][indexField];
+                  console.log(field);
+                  if (field) {
+                    console.log(field.id);
                     return (
-                      <td key={d.id} onClick={() => modalHandler(d.id)}>
-                        id:{d.id} - pId:{d.productId} - cId:{d.companyId}
+                      <td key={index} onClick={() => modalHandler(field.id)}>
+                        id:{field.id} - pId:{field.productId} - cId:
+                        {field.companyId}
                       </td>
                     );
                   } else {
                     return (
                       <td
-                        key={d.id}
+                        key={index}
                         style={{
                           backgroundColor: "#c9c0c0",
                           cursor: "no-drop",
@@ -112,7 +107,7 @@ const TableComponent = () => {
                 })}
               </tr>
             );
-          })} */}
+          })}
         </tbody>
       </Table>
       <Modal show={show} onHide={handleClose}>
